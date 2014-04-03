@@ -111,3 +111,28 @@ def testC():
 
 rebuildDatabase()
 #testC()
+
+def checkTRNA(id):
+	names = getAllCustomDbNames()
+	id5 = id+"-5"
+	id3 = id+"-3"
+	seq5 = ""
+	seq3 = ""
+	status = "not found"
+	for i in range(0,len(names),3):
+		if names[i].find(id5)>0:
+			seq5 = names[i+1]  
+			status = "found"
+		elif names[i].find(id3)>0:
+			seq3 = names[i+1]
+			status = "found"
+	return {"Status":status, "Seq5":seq5, "Seq3":seq3}
+
+def matchTRNA(id,seq5,seq3):
+	result = check53(seq5,seq3)[0]
+	return {"Result":str(result)}
+
+def appendTRNA(id,seq5,seq3):
+	addToCustomDatabase(id,seq5,seq3);
+	return {"Result":"OK"}
+
